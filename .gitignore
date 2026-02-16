@@ -1,0 +1,22 @@
+# related projects
+background/
+
+# node + build
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+
+# system files
+.DS_Store
+Thumbs.db
+
+# artifacts
+contracts/artifacts/
+contracts/cache/
+contracts/typechain/
+contracts/typechain-types/
+contracts/coverage/
+contracts/coverage.json
+contracts/ignition/deployments/
