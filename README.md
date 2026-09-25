@@ -190,6 +190,7 @@ npm --prefix contracts test
 
 | Symptom / 症状 | Check / 確認内容 |
 | --- | --- |
+| `HHE411` with `Cannot find package 'chalk'` / `chalk` が見つからない | Run `npm ci` in `contracts`. The project explicitly includes `chalk` because `hardhat-multibaas-plugin@3.0.0` imports it without declaring it. / `contracts` で `npm ci` を実行。`hardhat-multibaas-plugin@3.0.0` が未宣言の `chalk` を読み込むため、このプロジェクトでは明示的に依存へ追加。 |
 | API/CORS errors / API・CORS エラー | Deployment URL, DApp User permissions, exact origin / URL・DApp User 権限・正確な Origin |
 | Contract lookup fails / コントラクト参照失敗 | ABI labels and linked address aliases in MultiBaas / MultiBaas の ABI ラベル・紐付け済みエイリアス |
 | Transaction fails / tx 失敗 | Matching network, gas balance, MJPY balance and allowance / ネットワーク一致・ガス残高・MJPY 残高・支払い承認 |
