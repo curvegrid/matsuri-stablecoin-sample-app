@@ -1,7 +1,7 @@
 // Network configuration used for wallet switching and display.
 // ウォレット切替や表示に使うネットワーク設定。
 export type ChainConfig = {
-  key: 'kaigan' | 'sepolia';
+  key: 'awaji' | 'sepolia';
   chainId: number;
   chainIdHex: string;
   name: string;
@@ -18,13 +18,13 @@ const sepoliaRpc = import.meta.env.VITE_SEPOLIA_RPC_URL ?? 'https://rpc.sepolia.
 // MetaMask のネットワーク切替用設定。
 export const SUPPORTED_NETWORKS: ChainConfig[] = [
   {
-    key: 'kaigan',
-    chainId: 5_278_000,
-    chainIdHex: '0x508930',
-    name: 'JSC Kaigan',
-    rpcUrl: 'https://rpc.kaigan.jsc.dev',
-    explorerUrl: 'https://explorer.kaigan.jsc.dev',
-    currencySymbol: 'JETH'
+    key: 'awaji',
+    chainId: 6_497,
+    chainIdHex: '0x1961',
+    name: 'MIZUHIKI Testnet Awaji',
+    rpcUrl: 'https://rpc.awaji.mizuhiki.io',
+    explorerUrl: 'https://awaji.blockscout.com',
+    currencySymbol: 'MIZU'
   },
   {
     key: 'sepolia',
@@ -39,7 +39,8 @@ export const SUPPORTED_NETWORKS: ChainConfig[] = [
 
 // Default network preset shown in the UI and used for "Switch Network".
 // UI のデフォルトネットワークと「切替」対象。
-export const DEFAULT_CHAIN_KEY = (import.meta.env.VITE_DEFAULT_CHAIN as 'kaigan' | 'sepolia') ?? 'kaigan';
+export const DEFAULT_CHAIN_KEY: ChainConfig['key'] =
+  import.meta.env.VITE_DEFAULT_CHAIN === 'sepolia' ? 'sepolia' : 'awaji';
 
 // MultiBaas base URL and API key for the frontend (DApp User key).
 // フロントエンド用の MultiBaas URL と API キー（DApp User）。

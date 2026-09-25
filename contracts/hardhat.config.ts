@@ -6,31 +6,35 @@ import hardhatMocha from '@nomicfoundation/hardhat-mocha';
 import hardhatMultibaasPlugin from 'hardhat-multibaas-plugin';
 import 'dotenv/config';
 
-// Configure Kaigan and Sepolia for deployment.
-// Kaigan と Sepolia のデプロイ設定。
+// Configure Awaji and Sepolia for deployment.
+// Awaji と Sepolia のデプロイ設定。
 const mbHost = process.env.MB_HOST ?? '';
+const mbApiKey = process.env.MB_ADMIN_API_KEY ?? '';
+// Load the linking plugin only when credentials are set so local tests work without secrets.
+// ローカルテストに秘密情報が不要になるよう、認証情報がある場合のみ紐付けプラグインを読み込む。
+const multibaasPlugins = mbHost && mbApiKey ? [hardhatMultibaasPlugin] : [];
 
 export default defineConfig({
   solidity: '0.8.33',
-  plugins: [hardhatIgnition, hardhatEthers, hardhatEthersChaiMatchers, hardhatMocha, hardhatMultibaasPlugin],
+  plugins: [hardhatIgnition, hardhatEthers, hardhatEthersChaiMatchers, hardhatMocha, ...multibaasPlugins],
   ignition: {
     requiredConfirmations: 1
   },
   networks: {
-    kaigan: {
+    awaji: {
       type: 'http',
       chainType: 'l1',
-      // Use web3 endpoint when configured; otherwise fall back to public RPC.
-      // web3 エンドポイントがあれば優先し、なければ RPC を使う。
-      url: process.env.KAIGAN_RPC_URL || 'https://rpc.kaigan.jsc.dev',
-      chainId: 5_278_000,
+      // Use the configured RPC endpoint, or the public default.
+      // 設定済み RPC エンドポイント、または公開の既定値を使う。
+      url: process.env.AWAJI_RPC_URL || 'https://rpc.awaji.mizuhiki.io',
+      chainId: 6_497,
       accounts: process.env.DEPLOYER_KEY ? [process.env.DEPLOYER_KEY] : []
     },
     sepolia: {
       type: 'http',
       chainType: 'l1',
-      // Use web3 endpoint when configured; otherwise fall back to public RPC.
-      // web3 エンドポイントがあれば優先し、なければ RPC を使う。
+      // Use the configured RPC endpoint, or the public default.
+      // 設定済み RPC エンドポイント、または公開の既定値を使う。
       url: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
       chainId: 11_155_111,
       accounts: process.env.DEPLOYER_KEY ? [process.env.DEPLOYER_KEY] : []
@@ -39,10 +43,10 @@ export default defineConfig({
   // MultiBaas admin config used by the plugin to register and link contracts.
   // コントラクト登録とリンクのための MultiBaas 管理設定。
   mbConfig: {
-    apiKey: process.env.MB_ADMIN_API_KEY ?? '',
+    apiKey: mbApiKey,
     host: mbHost,
-    allowUpdateAddress: ['kaigan', 'sepolia'],
-    allowUpdateContract: ['kaigan', 'sepolia'],
+    allowUpdateAddress: ['awaji', 'sepolia'],
+    allowUpdateContract: ['awaji', 'sepolia'],
     syncExisting: false,
   }
 });

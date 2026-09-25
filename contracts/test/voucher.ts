@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { network } from 'hardhat';
 
-const { ethers } = await network.connect();
+const { ethers } = await network.create();
 
 // Basic tests for ERC721 vouchers.
 // ERC721 バウチャーの基本テスト。

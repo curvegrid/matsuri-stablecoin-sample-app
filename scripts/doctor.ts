@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Simple environment checker for hackathon setup.
 // ハッカソン用の簡易環境チェック。
@@ -23,7 +24,7 @@ const checks: EnvCheck[] = [
   },
   {
     name: 'contracts/.env',
-    required: ['DEPLOYER_KEY', 'KAIGAN_RPC_URL', 'SEPOLIA_RPC_URL']
+    required: ['DEPLOYER_KEY', 'MB_HOST', 'MB_ADMIN_API_KEY']
   }
 ];
 
@@ -41,7 +42,7 @@ function parseEnvFile(filePath: string): Record<string, string> {
 }
 
 function main() {
-  const root = path.resolve(__dirname, '..');
+  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
   let hasMissing = false;
 
   console.log('Doctor: environment check');

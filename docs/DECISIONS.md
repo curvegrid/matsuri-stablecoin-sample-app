@@ -17,5 +17,5 @@ MultiBaas contract labels select ABI/version; address aliases map to deployed ad
 ラベルは ABI/バージョンを選び、エイリアスが実アドレスに紐付く。
 
 ## 5) Demo Scope / デモ範囲
-This is a hackathon demo, not production-ready (no access control, rate limits, or fraud checks).
-ハッカソン向けの簡易デモであり、本番品質の権限制御や不正対策は未実装。
+This is a hackathon demo. Contracts enforce issuer ownership, but there is no fiat backing, merchant verification, or production fraud prevention.
+ハッカソン向けデモ。コントラクトで発行者権限を制御するが、法定通貨の裏付け・加盟店確認・本番向け不正対策は未実装。

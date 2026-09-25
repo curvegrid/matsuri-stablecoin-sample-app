@@ -13,35 +13,20 @@ JP: ハッカソン向けデモを自動エージェントが素早く理解・�
 
 ## Quick Start (Agent) / クイックスタート
 EN:
-1. Read `README.md` for setup and architecture.
-2. Update `apps/web/.env` for MultiBaas and contract aliases.
-3. Run `npm install` and `npm run dev` inside `apps/web`.
-4. Deploy with Ignition; MultiBaas auto-link runs when MB config is set: `npm run deploy -- --network kaigan`.
-5. Shortcuts: `npm run deploy:kaigan` and `npm run deploy:sepolia`.
-6. (Optional) `npm run deploy:list` to list Ignition deployments.
-7. (Optional) `npm run deploy:reset:kaigan` (delete Kaigan deployment folder).
-8. (Optional) `npm run deploy:reset:sepolia` (delete Sepolia deployment folder).
-9. (Optional) `npm run deploy:reset:all` (delete all Ignition deployments).
-10. (Optional) `npm run deploy:reset:latest` to wipe all futures in the latest deployment.
-11. (Optional) `npm run deploy:reset:latest:kaigan`.
-12. (Optional) `npm run deploy:reset:latest:sepolia`.
-5. (Optional) Deploy via MultiBaas script: `npm run deploy:multibaas -- --network kaigan`.
-6. (Optional) `npm run deploy:list` to list Ignition deployments.
-7. (Optional) `npm run deploy:reset -- <deploymentId> <futureId>` to wipe a deployment future.
+1. Read `README.md` for setup and architecture; use Node.js 24 LTS.
+2. Configure `contracts/.env`, then run `npm ci` and `npm run deploy:awaji` inside `contracts`.
+3. Verify MultiBaas contract linking and configure CORS.
+4. Configure `apps/web/.env`, then run `npm ci` and `npm run dev` inside `apps/web`.
+5. Use `npm run deploy:sepolia` for Sepolia or `npm run deploy:list` to list deployments.
+6. `deploy:reset:awaji` and `deploy:reset:sepolia` delete local deployment records; they do not remove on-chain contracts.
 
 JP:
-1. `README.md` でセットアップとアーキテクチャを確認。
-2. `apps/web/.env` に MultiBaas とコントラクト設定を反映。
-3. `apps/web` で `npm install` と `npm run dev`。
-4. `contracts` で `npm run deploy -- --network kaigan` を実行（Ignition。MB 設定があれば自動リンク）。
-5. ショートカット: `npm run deploy:kaigan` と `npm run deploy:sepolia`。
-6. （任意）`npm run deploy:list` で Ignition デプロイ一覧を表示。
-7. （任意）`npm run deploy:reset:kaigan`（Kaigan のデプロイフォルダ削除）。
-8. （任意）`npm run deploy:reset:sepolia`（Sepolia のデプロイフォルダ削除）。
-9. （任意）`npm run deploy:reset:all`（全デプロイフォルダ削除）。
-10. （任意）`npm run deploy:reset:latest` で最新デプロイの future を一括リセット。
-11. （任意）`npm run deploy:reset:latest:kaigan`。
-12. （任意）`npm run deploy:reset:latest:sepolia`。
+1. `README.md` でセットアップと構成を確認し、Node.js 24 LTS を使用。
+2. `contracts/.env` を設定し、`contracts` で `npm ci` と `npm run deploy:awaji` を実行。
+3. MultiBaas のコントラクト紐付けを確認し、CORS を設定。
+4. `apps/web/.env` を設定し、`apps/web` で `npm ci` と `npm run dev` を実行。
+5. Sepolia には `npm run deploy:sepolia`、デプロイ一覧には `npm run deploy:list` を使用。
+6. `deploy:reset:awaji` と `deploy:reset:sepolia` はローカルのデプロイ記録を削除する。オンチェーンのコントラクトは削除されない。
 
 ## Key Files / 重要ファイル
 - `apps/web/src/App.tsx`: Main UI and flows (issuer + voucher market)
@@ -52,7 +37,6 @@ JP:
 - `apps/web/src/data/events.ts`: Static matsuri events
 - `contracts/contracts/MatsuriStablecoin.sol`: ERC20 stablecoin
 - `contracts/contracts/MatsuriVoucher.sol`: ERC721 voucher contract
-- `contracts/scripts/deploy.ts`: Deploy script (with MultiBaas plugin support)
 - `contracts/ignition/modules/MatsuriDemo.ts`: Ignition deployment module
 
 ## Data Flow / データフロー
@@ -113,8 +97,8 @@ EN: Ensure CORS is set in MultiBaas UI: Admin > CORS Origins.
 JP: MultiBaas UI の Admin > CORS Origins に Origin を追加。
 
 ## Tests / テスト
-EN: No automated tests included. Add unit tests in `contracts/test` if needed.
-JP: 自動テストは未追加。必要なら `contracts/test` に追加。
+EN: Run `npm test` inside `contracts` for issuer permissions, voucher purchases, transfer restrictions, and redemption. Run `npm run build` inside `apps/web`.
+JP: `contracts` で `npm test` を実行し、発行権限・購入・譲渡制限・利用を検証。`apps/web` で `npm run build` を実行。
 
 ## Output Format / 出力スタイル
 EN: Keep all new comments bilingual (English + Japanese, two lines).
