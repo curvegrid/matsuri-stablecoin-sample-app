@@ -1,4 +1,4 @@
-# Matsuri Stablecoin Demo / まつりステーブルコインデモ
+# 🏮 Matsuri Stablecoin Demo / まつりステーブルコインデモ 🏮
 
 ## TL;DR / 要点
 
