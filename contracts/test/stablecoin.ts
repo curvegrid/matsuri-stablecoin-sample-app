@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { network } from 'hardhat';
 
-const { ethers } = await network.connect();
+const { ethers } = await network.create();
 
 // Basic tests for the issuer-controlled stablecoin.
 // 発行者管理ステーブルコインの基本テスト。

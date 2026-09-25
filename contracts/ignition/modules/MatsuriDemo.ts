@@ -11,13 +11,18 @@ const EVENTS = [
 // Ignition module to deploy the demo contracts and seed events.
 // デモ用コントラクトをデプロイしイベントを初期化する Ignition モジュール。
 export default buildModule('MatsuriDemo', (m) => {
+  // Require linking credentials before creating any deployment transactions.
+  // デプロイトランザクションの作成前に紐付け用の認証情報を必須とする。
+  if (!process.env.MB_HOST || !process.env.MB_ADMIN_API_KEY) {
+    throw new Error('Set MB_HOST and MB_ADMIN_API_KEY / MB_HOST と MB_ADMIN_API_KEY を設定してください');
+  }
   const deployer = m.getAccount(0);
 
   const stablecoin = m.contract('MatsuriStablecoin', ['Matsuri Yen', 'MJPY', deployer]);
   const voucher = m.contract('MatsuriVoucher', [stablecoin, deployer]);
 
-  // Link deployments to MultiBaas when MB config is provided.
-  // MB 設定がある場合は MultiBaas にリンクする。
+  // Link deployed contracts to MultiBaas.
+  // デプロイ済みコントラクトを MultiBaas に紐付ける。
   mb.link(stablecoin, {
     contractLabel: 'matsuri_stablecoin',
     contractVersion: '1.0',

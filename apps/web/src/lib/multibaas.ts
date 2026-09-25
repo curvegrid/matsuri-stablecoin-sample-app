@@ -57,10 +57,10 @@ export async function callContract<T>(
 
   const resp = await client.callContractFunction(addressOrAlias, contractLabel, method, payload);
   const result = resp.data.result as MultiBaas.CallContractFunction200ResponseAllOfResult;
-  if (result?.tx) {
+  if (result && 'tx' in result && result.tx) {
     return { tx: result.tx };
   }
-  if (result?.output !== undefined) {
+  if (result && 'output' in result && result.output !== undefined) {
     return { output: result.output as T };
   }
   return {};

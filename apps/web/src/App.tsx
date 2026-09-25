@@ -390,7 +390,7 @@ export default function App() {
           </div>
           <div className="pill">
             <span>{t('network')}</span>
-            <select value={selectedChainKey} onChange={(e) => setSelectedChainKey(e.target.value as 'kaigan' | 'sepolia')}>
+            <select value={selectedChainKey} onChange={(e) => setSelectedChainKey(e.target.value as 'awaji' | 'sepolia')}>
               {SUPPORTED_NETWORKS.map((net) => (
                 <option key={net.key} value={net.key}>
                   {net.name}
